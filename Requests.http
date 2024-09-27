@@ -1,0 +1,34 @@
+
+### sleep request
+GET http://localhost:3000/api/sleep
+
+
+### sleep request With Time
+GET http://localhost:3000/api/sleep/99
+
+
+
+### GET teamspeak users
+GET http://localhost:3000/api/ts/users
+Accept: application/json
+
+### GET teamspeak user existing
+GET http://localhost:3000/api/ts/user/20947
+Accept: application/json
+
+### GET teamspeak user Non Existing
+GET http://localhost:3000/api/ts/user?id=42
+Accept: application/json
+
+### GET teamspeak user Non Existing
+GET http://localhost:3000/api/ts/user/name?name=42
+Accept: application/json
+
+
+### GET ts/kickUser existing
+GET http://localhost:3000/api/ts/kickUser?name=Wookie
+Accept: application/json
+
+### GET ts/kickUser  Non Existing
+GET http://localhost:3000/api/ts/kickUser?name=w
+Accept: application/json
