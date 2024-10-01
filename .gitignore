@@ -173,3 +173,6 @@ dist
 
 # Finder (MacOS) folder config
 .DS_Store
+
+#http-client-env
+/api-requests/http-client.env.json

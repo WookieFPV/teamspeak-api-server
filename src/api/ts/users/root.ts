@@ -1,5 +1,5 @@
-import {getClients, getTeamspeakInstance} from "../../teamspeak/ts3.ts";
 import {Context} from "hono";
+import {getClients, getTeamspeakInstance} from "~/teamspeak/ts3.ts";
 
 export const apiTsUsers = async (c: Context) => {
     const ts = await getTeamspeakInstance();

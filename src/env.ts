@@ -8,7 +8,8 @@ const envSchema = z.object({
     TS3_USERNAME: z.string(),
     TS3_USER_CID: z.string().optional(),
 }).catch((e) => {
-    console.warn("Missing env vars", e);
+    console.log("Missing env vars!")
+    console.log(e.error);
     throw e
 })
 

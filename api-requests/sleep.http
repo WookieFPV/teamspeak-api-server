@@ -1,0 +1,7 @@
+
+### sleep request
+GET http://localhost:3000/api/sleep
+
+
+### sleep request With Time
+GET http://localhost:3000/api/sleep/99

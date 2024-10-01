@@ -1,0 +1,14 @@
+
+### GET teamspeak users
+GET {{host}}/users
+
+### GET teamspeak user existing
+GET {{host}}/users/Wookie
+
+### GET teamspeak user non existing
+GET {{host}}/users/FooBar
+
+
+
+
+

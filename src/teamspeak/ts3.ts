@@ -8,6 +8,10 @@ export const getClients = async (ts: TeamSpeak) => {
     return (await ts.clientList()).filter((c) => c.type === 0);
 };
 
+export const findClient = async (ts: TeamSpeak, name: string) => {
+    return (await ts.clientList()).find((c) => c.nickname === name);
+};
+
 let ts: null | TeamSpeak = null;
 export const getTeamspeakInstance = async (): Promise<TeamSpeak> => {
     const value = await queue.add(async (): Promise<TeamSpeak> => {
@@ -16,7 +20,8 @@ export const getTeamspeakInstance = async (): Promise<TeamSpeak> => {
         const _ts = await tsConnect();
         ts = _ts
         _ts.on("error", (e) => {
-            console.warn("error ",e);
+            console.warn("error ", e);
+            ts?.quit()
             ts = null
         });
         return _ts;
