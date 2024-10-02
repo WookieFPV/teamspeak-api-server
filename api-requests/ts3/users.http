@@ -1,12 +1,15 @@
 
 ### GET teamspeak users
 GET {{host}}/users
+Authorization: Bearer {{jwt}}
 
 ### GET teamspeak user existing
 GET {{host}}/users/Wookie
+Authorization: Bearer {{jwt}}
 
 ### GET teamspeak user non existing
 GET {{host}}/users/FooBar
+Authorization: Bearer {{jwt}}
 
 
 

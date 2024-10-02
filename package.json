@@ -1,7 +1,8 @@
 {
   "name": "bun-hono-server",
   "scripts": {
-    "dev": "bun run --watch src/index.ts"
+    "dev": "bun run --watch src/index.ts",
+    "run": "bun run src/index.ts"
   },
   "dependencies": {
     "@t3-oss/env-nextjs": "0.11.1",
