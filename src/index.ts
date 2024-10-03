@@ -8,7 +8,7 @@ import {apiTsUsers} from "~/api/ts/users/root.ts";
 import type {JwtVariables} from 'hono/jwt'
 import {bearerAuth} from 'hono/bearer-auth'
 import {env} from "~/env.ts";
-import {serveStatic} from "hono/bun";
+import {getConnInfo, serveStatic} from "hono/bun";
 
 // this is against the Best Practices, but I will keep it this way for now: https://hono.dev/docs/guides/best-practices#don-t-make-controllers-when-possible
 const app = new Hono<{ Variables: JwtVariables }>().basePath('/api')
@@ -32,6 +32,10 @@ app.get('/sleep', (c) => apiSleep(c, "1000"))
 app.use('/wookie', serveStatic({path: 'src/api/demo/wookie.jpg'}))
 
 app.get('/debug', (c) => {
-    return c.json({"foo": "bar"})
+    const info = getConnInfo(c)
+    return c.json(info)
 })
-export default app
+export default {
+    port: 3000,
+    fetch: app.fetch,
+}

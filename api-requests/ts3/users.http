@@ -1,14 +1,16 @@
 
+
 ### GET teamspeak users
-GET {{host}}/users
+GET {{host}}/ts/users
+Accept: application/json
 Authorization: Bearer {{jwt}}
 
 ### GET teamspeak user existing
-GET {{host}}/users/Wookie
+GET {{host}}/ts/users/Wookie
 Authorization: Bearer {{jwt}}
 
 ### GET teamspeak user non existing
-GET {{host}}/users/FooBar
+GET {{host}}/ts/users/FooBar
 Authorization: Bearer {{jwt}}
 
 

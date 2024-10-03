@@ -1,16 +1,16 @@
 
 ### sleep request
-GET http://localhost:3000/api/sleep
+GET {{host}}/sleep
 Authorization: Bearer {{jwt}}
 
 ### sleep request With Time
-GET http://localhost:3000/api/sleep/99
+GET {{host}}/sleep/99
 Authorization: Bearer {{jwt}}
 
 ### debug
-GET http://localhost:3000/api/debug
+GET {{host}}/debug
 Authorization: Bearer {{jwt}}
 
 ### Static Image
-GET http://localhost:3000/api/wookie
+GET {{host}}/wookie
 Authorization: Bearer {{jwt}}
