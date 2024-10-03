@@ -176,3 +176,4 @@ dist
 
 #http-client-env
 /api-requests/http-client.env.json
+/.ssl

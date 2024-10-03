@@ -13,7 +13,12 @@ import {getConnInfo, serveStatic} from "hono/bun";
 // this is against the Best Practices, but I will keep it this way for now: https://hono.dev/docs/guides/best-practices#don-t-make-controllers-when-possible
 const app = new Hono<{ Variables: JwtVariables }>().basePath('/api')
 
-app.use('/ts/*', bearerAuth({token: env.API_SECRET}))
+app.use('/ts/*', bearerAuth({
+    token: env.API_SECRET,
+    invalidAuthenticationHeaderMessage: "Invalid invalidAuthenticationHeaderMessage",
+}))
+
+app.get('/ts/channels2', c => c.json({channels: []}))
 
 app.get('/ts/channels', apiTsChannels)
 
@@ -35,7 +40,12 @@ app.get('/debug', (c) => {
     const info = getConnInfo(c)
     return c.json(info)
 })
+
 export default {
     port: 3000,
     fetch: app.fetch,
+    tls: {
+        cert: Bun.file("./.ssl/fullchain.pem"),
+        key: Bun.file("./.ssl/privkey.pem"),
+    }
 }
