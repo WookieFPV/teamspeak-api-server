@@ -1,5 +1,4 @@
 
-
 ### GET teamspeak users
 GET {{host}}/ts/users
 Accept: application/json
