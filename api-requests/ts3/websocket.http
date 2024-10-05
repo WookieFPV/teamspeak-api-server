@@ -1,0 +1,13 @@
+
+### WS
+WEBSOCKET {{wsHost}}/ts/ws
+Authorization: Bearer {{jwt}}
+Content-Type: application/json
+
+### GET Upgrade (that doesn't work here)
+GET {{host}}/ts/ws
+Authorization: Bearer {{jwt}}
+Upgrade: websocket
+Host: server.example.com
+Connection: Upgrade
+Sec-WebSocket-Key: dGhlIHNhbXBsZSBub25jZQ==
