@@ -48,11 +48,15 @@ export const ws = app.get(
 
                 ts.on("clientconnect", (e) => {
                     console.log(`clientconnect: ${e.client.nickname}`)
-                    ws.raw?.send(stringifyWsEvent({type: "connect", e}))
+                    ws.raw?.send(stringifyWsEvent({type: "clientConnect", e}))
                 })
                 ts.on("clientdisconnect", (e) => {
                     console.log(`clientdisconnect: ${e.client?.nickname ?? e.client?.clid ?? e.client?.cid}`)
-                    ws.raw?.send(stringifyWsEvent({type: "disconnect", e}))
+                    ws.raw?.send(stringifyWsEvent({type: "clientDisconnect", e}))
+                })
+                ts.on("clientmoved", (e) => {
+                    console.log(`clientmoved: ${e.client?.nickname ?? e.client?.clid ?? e.client?.cid}`)
+                    ws.raw?.send(stringifyWsEvent({type: "clientMoved", e}))
                 })
             },
             onClose(_, ws) {

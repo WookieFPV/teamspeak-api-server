@@ -1,11 +1,15 @@
 import {TeamSpeakClient} from "ts3-nodejs-library/lib/node/Client";
+import {TeamSpeakChannel} from "ts3-nodejs-library/lib/node/Channel.ts";
 
 type TsWsEvent = {
-    type: "connect",
+    type: "clientConnect",
     e: ClientConnect
 } | {
-    type: "disconnect"
+    type: "clientDisconnect"
     e: ClientDisconnect
+} | {
+    type: "clientMoved",
+    e: ClientMoved
 } | {
     type: "connected"
 }
@@ -28,4 +32,10 @@ export interface ClientDisconnect {
         invokeruid?: string;
         bantime?: number;
     };
+}
+
+export interface ClientMoved {
+    client: TeamSpeakClient
+    channel: TeamSpeakChannel
+    reasonid: string
 }
