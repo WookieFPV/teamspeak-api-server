@@ -11,6 +11,7 @@ import type {ServerWebSocket} from 'bun'
 import {getTeamspeakInstance} from "~/teamspeak/ts3.ts";
 import {bearerAuth} from "hono/bearer-auth";
 import {env} from "~/env.ts";
+import {stringifyWsEvent} from "~/teamspeak/WsEvent.ts";
 
 
 const {upgradeWebSocket, websocket} =
@@ -42,16 +43,16 @@ export const ws = app.get(
             },
             async onOpen(_, ws) {
                 console.log(`onOpen`);
-                ws.raw?.send(JSON.stringify({type: "connected"}))
+                ws.raw?.send(stringifyWsEvent({type: "connected"}))
                 const ts = await getTeamspeakInstance()
 
                 ts.on("clientconnect", (e) => {
                     console.log(`clientconnect: ${e.client.nickname}`)
-                    ws.raw?.send(JSON.stringify({type: "connect", e}))
+                    ws.raw?.send(stringifyWsEvent({type: "connect", e}))
                 })
                 ts.on("clientdisconnect", (e) => {
                     console.log(`clientdisconnect: ${e.client?.nickname ?? e.client?.clid ?? e.client?.cid}`)
-                    ws.raw?.send(JSON.stringify({type: "disconnect", e}))
+                    ws.raw?.send(stringifyWsEvent({type: "disconnect", e}))
                 })
             },
             onClose(_, ws) {
@@ -77,9 +78,9 @@ export default {
     fetch: app.fetch,
     websocket,
     tls: {
-         cert: Bun.file("./.ssl/fullchain.pem"),
-         key: Bun.file("./.ssl/privkey.pem"),
-     },
+        cert: Bun.file("./.ssl/fullchain.pem"),
+        key: Bun.file("./.ssl/privkey.pem"),
+    },
 }
 
 //used to type hono/client if used
