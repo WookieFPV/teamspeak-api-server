@@ -1,0 +1,12 @@
+
+### create token
+POST {{host}}/token
+Authorization: Bearer {{jwt}}
+
+### DELETE token
+DELETE {{host}}/token/someToken
+Authorization: Bearer {{jwt}}
+
+### GET token count
+GET {{host}}/token
+Authorization: Bearer {{jwt}}

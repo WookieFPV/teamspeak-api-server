@@ -1,5 +1,5 @@
-import {createBunWebSocket} from "hono/bun";
-import type {ServerWebSocket} from "bun";
+import type { ServerWebSocket } from 'bun';
+import { createBunWebSocket } from 'hono/bun';
 
-export const {upgradeWebSocket, websocket} =
-    createBunWebSocket<ServerWebSocket>()
+export const { upgradeWebSocket, websocket } =
+  createBunWebSocket<ServerWebSocket>();

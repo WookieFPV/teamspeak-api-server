@@ -1,3 +1,3 @@
-import {serveStatic} from "hono/bun";
+import { serveStatic } from 'hono/bun';
 
-export const apiDemoWookie = serveStatic({path: 'assets/wookie.jpg'})
+export const apiDemoWookie = serveStatic({ path: 'assets/wookie.jpg' });
