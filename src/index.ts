@@ -6,16 +6,12 @@ import {apiTsUsersById} from "./api/ts/users/ById.ts";
 import {apiTsUsersPoke} from "./api/ts/users/poke.ts";
 import {apiTsUsers} from "~/api/ts/users/root.ts";
 import type {JwtVariables} from 'hono/jwt'
-import {createBunWebSocket, getConnInfo, serveStatic} from "hono/bun";
-import type {ServerWebSocket} from 'bun'
-import {getTeamspeakInstance} from "~/teamspeak/ts3.ts";
+import {getConnInfo, serveStatic} from "hono/bun";
 import {bearerAuth} from "hono/bearer-auth";
 import {env} from "~/env.ts";
-import {stringifyWsEvent} from "~/teamspeak/WsEvent.ts";
+import {websocket} from "~/websocket.ts";
+import {apiTsWs} from "~/api/ts/ws.ts";
 
-
-const {upgradeWebSocket, websocket} =
-    createBunWebSocket<ServerWebSocket>()
 
 const bootDate = new Date();
 
@@ -34,37 +30,7 @@ app.delete('/ts/users/:name/kick', apiTsUsersKick)
 
 app.post('/ts/users/:name/poke', apiTsUsersPoke)
 
-export const ws = app.get(
-    '/ts/ws',
-    upgradeWebSocket((_) => {
-        return ({
-            onMessage(msg) {
-                console.log("onMSg: ", msg.data)
-            },
-            async onOpen(_, ws) {
-                console.log(`onOpen`);
-                ws.raw?.send(stringifyWsEvent({type: "connected"}))
-                const ts = await getTeamspeakInstance()
-
-                ts.on("clientconnect", (e) => {
-                    console.log(`clientconnect: ${e.client.nickname}`)
-                    ws.raw?.send(stringifyWsEvent({type: "clientConnect", e}))
-                })
-                ts.on("clientdisconnect", (e) => {
-                    console.log(`clientdisconnect: ${e.client?.nickname ?? e.client?.clid ?? e.client?.cid}`)
-                    ws.raw?.send(stringifyWsEvent({type: "clientDisconnect", e}))
-                })
-                ts.on("clientmoved", (e) => {
-                    console.log(`clientmoved: ${e.client?.nickname ?? e.client?.clid ?? e.client?.cid}`)
-                    ws.raw?.send(stringifyWsEvent({type: "clientMoved", e}))
-                })
-            },
-            onClose(_, ws) {
-                console.log(`WebSocket server closed`);
-            },
-        })
-    })
-);
+app.get('/ts/ws', apiTsWs)
 
 app.get('/sleep/:time', (c) => apiSleep(c, c.req.param('time')))
 
@@ -87,5 +53,3 @@ export default {
     },
 }
 
-//used to type hono/client if used
-export type AppWs = typeof ws
