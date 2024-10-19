@@ -19,6 +19,7 @@ export const tsConnect = async (): Promise<TeamSpeak> => {
     //an error occurred during connecting
     throw e;
   });
+  console.log(`ts connect (${env.TS3_HOST}) done`);
   // eslint-disable-next-line @typescript-eslint/no-misused-promises
   ts.on('close', async (_error): Promise<void> => {
     console.log('disconnected, trying to reconnect...');

@@ -21,4 +21,4 @@ honoRouteTs.delete('/users/:name/kick', apiTsUsersKick);
 
 honoRouteTs.post('/users/:name/poke', apiTsUsersPoke);
 
-honoRouteTs.get('/ws2', apiTsWs);
+honoRouteTs.get('/ws', apiTsWs);
