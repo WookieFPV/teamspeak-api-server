@@ -1,35 +1,63 @@
 import { Database } from 'bun:sqlite';
 import { randomUUID } from 'node:crypto';
+import type { AuthToken } from '~/auth/tokenTypes.ts';
 
 const dbTokens = new Database('tokens.sqlite', { create: true });
 
 // Initialize the database table if it doesn't exist
-dbTokens.run(
-  'CREATE TABLE IF NOT EXISTS tokens     (         id         INTEGER         PRIMARY         KEY         AUTOINCREMENT,         token         TEXT         NOT         NULL         UNIQUE,         created_at         DATETIME       DEFAULT         CURRENT_TIMESTAMP     ) ',
-);
+dbTokens.run(`
+  CREATE TABLE IF NOT EXISTS tokens (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    token TEXT NOT NULL UNIQUE,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    comment TEXT,
+    issuer TEXT
+  )
+`);
 
 function generateToken(): string {
   return randomUUID();
 }
 
-export function tokenCreate(): string {
+const stmtInsert = dbTokens.prepare<
+  void,
+  [AuthToken['token'], AuthToken['issuer'], AuthToken['comment']]
+>('INSERT INTO tokens (token, issuer, comment) VALUES (?, ?, ?)');
+
+export function tokenCreate({
+  comment,
+  issuer,
+}: Pick<AuthToken, 'issuer' | 'comment'>): AuthToken {
   const token = generateToken();
   try {
-    const stmt = dbTokens.prepare('INSERT INTO tokens (token) VALUES (?)');
-    stmt.run(token);
-    return token;
+    stmtInsert.run(token, issuer, comment);
+    return { token, comment, issuer };
   } catch (error) {
     console.error('Error storing token:', error);
     throw new Error('Failed to store token');
   }
 }
 
-const stmtGetAll = dbTokens.prepare('SELECT token FROM tokens');
+const stmtGetTokens = dbTokens.prepare<Pick<AuthToken, 'token'>, []>(
+  'SELECT (token) FROM tokens',
+);
 
-export function tokenGetAll(): string[] {
+export function tokenGetTokens(): Array<string> {
   try {
-    const rows = stmtGetAll.all() as { token: string }[];
-    return rows.map((row) => row.token);
+    return stmtGetTokens.all().map((row) => row.token);
+  } catch (error) {
+    console.error('Error retrieving tokens:', error);
+    return [];
+  }
+}
+
+const stmtGetFullTokens = dbTokens.prepare<AuthToken, []>(
+  'SELECT token, issuer, comment FROM tokens',
+);
+
+export function tokenGetFullTokens(): Array<AuthToken> {
+  try {
+    return stmtGetFullTokens.all();
   } catch (error) {
     console.error('Error retrieving tokens:', error);
     return [];
@@ -47,4 +75,9 @@ export function tokenDelete(token: string): boolean {
   }
 }
 
-export const tokenDb = { tokenCreate, tokenDelete, tokenGetAll };
+export const tokenDb = {
+  tokenCreate,
+  tokenDelete,
+  tokenGetFullTokens,
+  tokenGetTokens,
+};
