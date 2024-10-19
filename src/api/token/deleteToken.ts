@@ -8,5 +8,5 @@ export const apiTokenDelete = async (c: Context) => {
 
   if (!tokenDb.tokenDelete(token))
     throw new HTTPException(404, { message: 'Token not found' });
-  return c.status(200);
+  return c.text('Token deleted', 200);
 };

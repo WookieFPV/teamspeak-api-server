@@ -1,14 +1,16 @@
 import type { Context } from 'hono';
+import { HTTPException } from 'hono/http-exception';
 import { ReasonIdentifier } from 'ts3-nodejs-library';
 import { getTeamspeakInstance } from '~/teamspeak/ts3.ts';
 
 export const apiTsUsersKick = async (c: Context) => {
   const clientName = c.req.param('name');
-  if (!clientName) return new Response('name missing in url', { status: 400 });
+  if (!clientName)
+    throw new HTTPException(400, { message: 'Missing name param' });
 
   const ts = await getTeamspeakInstance();
   const [client] = await ts.clientFind(clientName);
-  if (!client) return new Response(undefined, { status: 404 });
+  if (!client) throw new HTTPException(404);
 
   try {
     await ts.clientKick(
@@ -17,10 +19,8 @@ export const apiTsUsersKick = async (c: Context) => {
       'kicked',
       false,
     );
-    return new Response(`kicked user ${client.clientNickname}`, {
-      status: 200,
-    });
+    return c.text(`kicked user ${client.clientNickname}`, 200);
   } catch (e) {
-    return new Response(undefined, { status: 404 });
+    throw new HTTPException(404, { message: `user ${clientName} not online` });
   }
 };
