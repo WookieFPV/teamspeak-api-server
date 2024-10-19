@@ -1,16 +1,16 @@
 
 ### sleep request
-GET {{host}}/sleep
+GET {{host}}/demo/sleep
 Authorization: Bearer {{jwt}}
 
 ### sleep request With Time
-GET {{host}}/sleep/99
+GET {{host}}/demo/sleep/99
 Authorization: Bearer {{jwt}}
 
 ### debug
-GET {{host}}/debug
+GET {{host}}/demo/debug
 Authorization: Bearer {{jwt}}
 
 ### Static Image
-GET {{host}}/wookie
+GET {{host}}/demo/wookie
 Authorization: Bearer {{jwt}}
