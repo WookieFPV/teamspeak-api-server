@@ -13,7 +13,7 @@ api.route('/demo', honoRouteDemo);
 api.route('/token', honoRouteToken);
 
 export default {
-  port: 3000,
+  port: 443,
   fetch: api.fetch,
   websocket,
   tls: {

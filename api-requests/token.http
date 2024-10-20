@@ -6,7 +6,7 @@ Authorization: Bearer {{jwt}}
 ### create token with issuer and comment
 @issuer =me
 @comment =test
-POST {{host}}/token?issuer={{issuer}}}}&comment={{comment}}
+POST {{host}}/token?issuer={{issuer}}&comment={{comment}}
 Authorization: Bearer {{jwt}}
 
 ### DELETE token
