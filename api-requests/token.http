@@ -3,6 +3,12 @@
 POST {{host}}/token
 Authorization: Bearer {{jwt}}
 
+### create token with issuer and comment
+@issuer =me
+@comment =test
+POST {{host}}/token?issuer={{issuer}}}}&comment={{comment}}
+Authorization: Bearer {{jwt}}
+
 ### DELETE token
 DELETE {{host}}/token/58d88cd9-6862-4fe3-9f89-ff339b7e07ab
 Authorization: Bearer {{jwt}}
