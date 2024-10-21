@@ -3,7 +3,7 @@ import { QueryProtocol, TeamSpeak } from 'ts3-nodejs-library';
 import { env } from '../env';
 
 export const tsConnect = async (): Promise<TeamSpeak> => {
-  console.log(`ts connect (${env.TS3_HOST})`);
+  console.log(`[TS] connect (${env.TS3_HOST})`);
   const ts = await TeamSpeak.connect({
     host: env.TS3_HOST,
     queryport: 10011,
@@ -19,13 +19,13 @@ export const tsConnect = async (): Promise<TeamSpeak> => {
     //an error occurred during connecting
     throw e;
   });
-  console.log(`ts connect (${env.TS3_HOST}) done`);
-  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  console.log(`[TS] connect (${env.TS3_HOST}) done`);
+
   ts.on('close', async (_error): Promise<void> => {
-    console.log('disconnected, trying to reconnect...');
+    console.log('[TS] disconnected, trying to reconnect...');
     await ts.reconnect(-1, 3000);
-    console.log('reconnected!');
+    console.log('[TS] reconnected!');
   });
-  console.log('ts Connected');
+  console.log('[TS] Connected');
   return ts;
 };
