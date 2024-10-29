@@ -44,7 +44,7 @@ export const getTeamspeakInstance = async (): Promise<TeamSpeak> => {
       console.log(`[TS] client mv: ${e.client.nickname} -> ${e.channel.name}`);
       tsEventEmitter.emit('clientmoved', e);
     });
-
+    console.log('[TS] setup Listeners');
     return _ts;
   });
   if (!value) throw Error('Result from ts queue connect was void');
