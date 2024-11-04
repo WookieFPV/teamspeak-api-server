@@ -33,7 +33,7 @@ export const apiTsWs = upgradeWebSocket((_) => {
   const getListenerCount = () => tsEventEmitter.listenerCount('clientconnect');
   return {
     onMessage(msg) {
-      console.log('[WS] [${listeners.connectionId}] onMSg: ', msg.data);
+      console.log(`[WS] [${listeners.connectionId}] onMSg: `, msg.data);
     },
     async onOpen(_, ws) {
       listeners.connectionDate = Date.now();
