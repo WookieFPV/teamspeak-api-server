@@ -12,5 +12,6 @@ tokens.sqlite
 #http-client-env
 /api-requests/http-client.env.json
 /.ssl
+!.ssl/Readme.md
 
 node_modules/

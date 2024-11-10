@@ -15,6 +15,21 @@ dbTokens.run(`
   )
 `);
 
+function createTokenIfNoTokenExist(): undefined | AuthToken {
+  if (tokenGetTokens().length !== 0) return;
+  const token = tokenCreate({
+    comment: 'initial token',
+    issuer: 'init script',
+  });
+  console.log('No API token found, will create a token...');
+  console.log(
+    `Initial API Token: ${token.token} (write it down, this will only be shown once).`,
+  );
+  console.log(
+    "You can create more tokens using the API with POST to /token or by editing the 'tokens.sqlite' db file",
+  );
+}
+
 function generateToken(): string {
   return randomUUID();
 }
@@ -79,5 +94,6 @@ export const tokenDb = {
   tokenCreate,
   tokenDelete,
   tokenGetFullTokens,
+  createTokenIfNoTokenExist,
   tokenGetTokens,
 };
