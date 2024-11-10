@@ -13,9 +13,9 @@ export const tsConnect = async (): Promise<TeamSpeak> => {
     nickname: env.TS3_NICKNAME,
     password: env.TS3_PASSWORD,
   }).catch(async (e) => {
-    console.log('[TS]tsConnect error', e);
+    console.log('[TS] tsConnect error', e);
     await sleep(3000);
-    console.log('[TS]tsConnect error delay done');
+    console.log('[TS] tsConnect error delay done');
     //an error occurred during connecting
     throw e;
   });
