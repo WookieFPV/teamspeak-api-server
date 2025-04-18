@@ -1,3 +1,4 @@
+import * as process from 'node:process';
 import { z } from 'zod';
 
 const envSchema = z
@@ -10,9 +11,9 @@ const envSchema = z
     TS3_USER_CID: z.string().optional(),
   })
   .catch((e) => {
-    console.log('Missing env vars!');
-    console.log(e.error);
-    throw e;
+    console.log('Invalid Environment Variables (.env file)');
+    console.log(e.error.message);
+    process.exit(1);
   });
 
 export const env = envSchema.parse({

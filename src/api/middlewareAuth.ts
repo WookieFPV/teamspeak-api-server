@@ -1,4 +1,6 @@
 import { bearerAuth } from 'hono/bearer-auth';
-import { tokenDb } from '~/auth/tokenStorage.ts';
+import { tokenExists } from '~/auth/tokenStorage.ts';
 
-export const middlewareAuth = bearerAuth({ token: tokenDb.tokenGetTokens() });
+export const middlewareAuth = bearerAuth({
+  verifyToken: (token) => tokenExists(token),
+});

@@ -1,4 +1,4 @@
 
 ### GET teamspeak users
 GET {{host}}/ts/channels
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}

@@ -66,6 +66,20 @@ export function tokenGetTokens(): Array<string> {
   }
 }
 
+const stmtCheckTokenExists = dbTokens.prepare<{ count: number }, [string]>(
+  'SELECT COUNT(*) as count FROM tokens WHERE token = ?',
+);
+
+export function tokenExists(token: string): boolean {
+  try {
+    const result = stmtCheckTokenExists.get(token);
+    return result ? result?.count > 0 : false;
+  } catch (error) {
+    console.error('Error checking token existence:', error);
+    return false;
+  }
+}
+
 const stmtGetFullTokens = dbTokens.prepare<AuthToken, []>(
   'SELECT token, issuer, comment FROM tokens',
 );

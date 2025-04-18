@@ -1,16 +1,16 @@
 
 ### sleep request
 GET {{host}}/demo/sleep
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 ### sleep request With Time
 GET {{host}}/demo/sleep/99
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 ### debug
 GET {{host}}/demo/debug
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 ### Static Image
 GET {{host}}/demo/wookie
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}

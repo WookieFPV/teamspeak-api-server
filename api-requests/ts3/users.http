@@ -2,20 +2,20 @@
 ### GET teamspeak users
 GET {{host}}/ts/users
 Accept: application/json
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 ### GET teamspeak user existing
 GET {{host}}/ts/users/Wookie
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 ### GET teamspeak user non existing
 GET {{host}}/ts/users/FooBar
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 
 ### Kick teamspeak user existing
 GET {{host}}/ts/users/Wookie
-Authorization: Bearer {{jwt}}
+Authorization: Bearer {{token}}
 
 
 
