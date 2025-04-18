@@ -25,7 +25,7 @@ jobs:
       run: bun install
 
     - name: Run typecheck
-      run: bun run typecheck
+      run: tsc
 
     - name: Run lint
       run: bun run lint:CI
