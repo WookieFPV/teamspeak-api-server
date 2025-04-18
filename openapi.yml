@@ -1,0 +1,377 @@
+openapi: 3.0.0
+info:
+  title: TeamSpeak API Server
+  description: API for interacting with TeamSpeak server
+  version: 1.0.0
+
+servers:
+- url: /api
+  description: Base API path
+security:
+- bearerAuth: [ ]
+
+paths:
+  /ts/channels:
+    get:
+      summary: Get all TeamSpeak channels
+      description: Returns a list of all channels on the TeamSpeak server
+      responses:
+        "200":
+          description: List of channels
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TsChannel"
+        "500":
+          description: Server error
+
+  /ts/users:
+    get:
+      summary: Get all TeamSpeak users
+      description: Returns a list of all clients connected to the TeamSpeak server
+      responses:
+        "200":
+          description: List of connected clients
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/TsUser"
+        "500":
+          description: Server error
+
+  /ts/users/{name}:
+    get:
+      summary: Get user by name
+      description: Returns information about a specific TeamSpeak user
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: User information
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/TsUser"
+        "400":
+          description: Missing name parameter
+        "404":
+          description: User not found
+
+  /ts/users/{name}/kick:
+    post:
+      summary: Kick a user
+      description: Kicks a user from the TeamSpeak server
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: User kicked successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: Missing name parameter
+        "404":
+          description: User not found
+
+  /ts/users/{name}/poke:
+    post:
+      summary: Poke a user
+      description: Sends a poke message to a user on the TeamSpeak server
+      parameters:
+      - name: name
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          text/plain:
+            schema:
+              type: string
+      responses:
+        "200":
+          description: Message sent successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: Missing name parameter or message body
+        "404":
+          description: User not found
+
+  /ts/ws:
+    get:
+      summary: WebSocket connection
+      description: Establishes a WebSocket connection to receive TeamSpeak events
+      responses:
+        "101":
+          description: WebSocket connection established
+
+  /token:
+    get:
+      summary: Get token count
+      description: Returns the count of API tokens
+      responses:
+        "200":
+          description: Token count
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  tokenCount:
+                    type: integer
+    post:
+      summary: Create new token
+      description: Creates a new API token
+      parameters:
+      - name: issuer
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: comment
+        in: query
+        required: false
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Token created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AuthToken"
+        "500":
+          description: Server error
+
+  /token/{token}:
+    delete:
+      summary: Delete token
+      description: Deletes an API token
+      parameters:
+      - name: token
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Token deleted successfully
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: Missing token parameter
+        "404":
+          description: Token not found
+
+  /demo/sleep:
+    get:
+      summary: Sleep endpoint (default time)
+      description: Sleeps for a default time (1000ms) before responding
+      responses:
+        "200":
+          description: Successful response after sleep
+          content:
+            text/plain:
+              schema:
+                type: string
+
+  /demo/sleep/{time}:
+    get:
+      summary: Sleep endpoint with custom time
+      description: Sleeps for a specified time in milliseconds before responding
+      parameters:
+      - name: time
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: Successful response after sleep
+          content:
+            text/plain:
+              schema:
+                type: string
+        "400":
+          description: Time is not a valid number
+
+  /demo/wookie:
+    get:
+      summary: Static wookie image
+      description: Returns a static image of a wookie
+      responses:
+        "200":
+          description: Wookie image
+          content:
+            image/jpeg:
+              schema:
+                type: string
+                format: binary
+
+  /demo/debug:
+    get:
+      summary: Debug information
+      description: Returns debug information about the connection and server
+      responses:
+        "200":
+          description: Debug information
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  bootDate:
+                    type: string
+                    format: date-time
+
+
+components:
+  schemas:
+    TsUser:
+      type: object
+      properties:
+        clid:
+          type: string
+        cid:
+          type: string
+        clientDatabaseId:
+          type: string
+        clientNickname:
+          type: string
+        clientType:
+          type: integer
+        clientAway:
+          type: boolean
+        clientFlagTalking:
+          type: boolean
+        clientInputMuted:
+          type: boolean
+        clientOutputMuted:
+          type: boolean
+        clientInputHardware:
+          type: boolean
+        clientOutputHardware:
+          type: boolean
+        clientTalkPower:
+          type: integer
+        clientIsTalker:
+          type: boolean
+        clientIsPrioritySpeaker:
+          type: integer
+        clientIsRecording:
+          type: boolean
+        clientIsChannelCommander:
+          type: boolean
+        clientUniqueIdentifier:
+          type: string
+        clientServergroups:
+          type: array
+          items:
+            type: string
+        clientChannelGroupId:
+          type: string
+        clientChannelGroupInheritedChannelId:
+          type: string
+        clientVersion:
+          type: string
+        clientPlatform:
+          type: string
+        clientIdleTime:
+          type: integer
+        clientCreated:
+          type: integer
+        clientLastconnected:
+          type: integer
+        clientIconId:
+          type: string
+        clientCountry:
+          type: string
+        connectionClientIp:
+          type: string
+        _namespace:
+          type: string
+
+    TsChannel:
+      type: object
+      properties:
+        cid:
+          type: string
+        pid:
+          type: string
+        channelOrder:
+          type: integer
+        channelName:
+          type: string
+        channelFlagDefault:
+          type: boolean
+        channelFlagPassword:
+          type: boolean
+        channelFlagPermanent:
+          type: boolean
+        channelFlagSemiPermanent:
+          type: boolean
+        channelCodec:
+          type: integer
+        channelCodecQuality:
+          type: integer
+        channelNeededTalkPower:
+          type: integer
+        channelIconId:
+          type: string
+        secondsEmpty:
+          type: integer
+        totalClientsFamily:
+          type: integer
+        channelMaxclients:
+          type: integer
+        channelMaxfamilyclients:
+          type: integer
+        totalClients:
+          type: integer
+        channelNeededSubscribePower:
+          type: integer
+        _namespace:
+          type: string
+
+    AuthToken:
+      type: object
+      properties:
+        token:
+          type: string
+        issuer:
+          type: string
+          nullable: true
+        comment:
+          type: string
+          nullable: true
+      required:
+      - token
+      -
+
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+

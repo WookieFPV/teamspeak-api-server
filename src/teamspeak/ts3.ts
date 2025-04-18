@@ -1,16 +1,19 @@
 import PQueue from 'p-queue';
-import type { TeamSpeak } from 'ts3-nodejs-library';
+import type { TeamSpeak, TeamSpeakClient } from 'ts3-nodejs-library';
 
 import { tsEventEmitter } from '~/teamspeak/tsEventEmitter.ts';
 import { tsConnect } from './ts-base';
 
 const queue = new PQueue({ concurrency: 1 });
 
-export const getClients = async (ts: TeamSpeak) => {
+export const getClients = async (ts: TeamSpeak): Promise<TeamSpeakClient[]> => {
   return (await ts.clientList()).filter((c) => c.type === 0);
 };
 
-export const findClient = async (ts: TeamSpeak, name: string) => {
+export const findClient = async (
+  ts: TeamSpeak,
+  name: string,
+): Promise<TeamSpeakClient | undefined> => {
   return (await ts.clientList()).find((c) => c.nickname === name);
 };
 
