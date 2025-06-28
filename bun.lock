@@ -4,7 +4,7 @@
     "": {
       "name": "BunHonoServer",
       "dependencies": {
-        "hono": "4.8.1",
+        "hono": "4.8.3",
         "p-queue": "8.1.0",
         "ts3-nodejs-library": "3.5.1",
         "zod": "3.25.67",
@@ -58,7 +58,7 @@
 
     "eventemitter3": ["eventemitter3@5.0.1", "", {}, "sha512-GWkBvjiSZK87ELrYOSESUYeVIc9mvLLf/nXalMOS5dYrgZq9o5OVkbZAVM06CVxYsCwH9BDZFPlQTlPA1j4ahA=="],
 
-    "hono": ["hono@4.8.1", "", {}, "sha512-ErA2ifywnSmcnB5XDuFqGDfXJ9xuAJR2C/8cZAk6vDaOCzofB8eNlha/wZWIiamREzWk94S9Z7wHsnKQHn7Niw=="],
+    "hono": ["hono@4.8.3", "", {}, "sha512-jYZ6ZtfWjzBdh8H/0CIFfCBHaFL75k+KMzaM177hrWWm2TWL39YMYaJgB74uK/niRc866NMlH9B8uCvIo284WQ=="],
 
     "nan": ["nan@2.20.0", "", {}, "sha512-bk3gXBZDGILuuo/6sKtr0DQmSThYHLtNCdSdXk9YkxD/jK6X2vmCyyXBBxyqZ4XcnzTyYEAThfX3DCEnLf6igw=="],
 
