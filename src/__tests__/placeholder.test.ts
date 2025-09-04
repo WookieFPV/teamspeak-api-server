@@ -1,6 +1,5 @@
-import { expect, test } from "bun:test";
+import { expect, test } from 'bun:test';
 
-
-test("", () => {
-    expect(true).toBe(true);
-})
+test('placeholder', () => {
+  expect(true).toBe(true);
+});
