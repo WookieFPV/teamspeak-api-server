@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "hono": "4.9.6",
-    "p-queue": "8.1.0",
+    "p-queue": "8.1.1",
     "ts3-nodejs-library": "3.5.1",
     "zod": "3.25.76"
   },
