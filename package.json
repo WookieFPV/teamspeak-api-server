@@ -17,7 +17,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
     "@types/bun": "latest",
-    "lefthook": "1.13.1",
+    "lefthook": "1.13.4",
     "typescript": "5.9.2"
   },
   "trustedDependencies": ["@biomejs/biome"]
