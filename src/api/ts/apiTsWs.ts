@@ -1,12 +1,12 @@
 import { randomUUID } from 'node:crypto';
+import { getTeamspeakInstance } from '~/teamspeak/ts3.ts';
+import { tsEventEmitter } from '~/teamspeak/tsEventEmitter.ts';
 import {
   type ClientConnect,
   type ClientDisconnect,
   type ClientMoved,
   stringifyWsEvent,
 } from '~/teamspeak/WsEvent.ts';
-import { getTeamspeakInstance } from '~/teamspeak/ts3.ts';
-import { tsEventEmitter } from '~/teamspeak/tsEventEmitter.ts';
 import { upgradeWebSocket } from '~/websocket.ts';
 
 type Listener<T> = (event: T) => void;

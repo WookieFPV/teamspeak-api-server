@@ -4,21 +4,23 @@
     "dev": "bun run --watch src/index.ts",
     "run": "bun run src/index.ts",
     "format": "bunx biome format --write .",
-    "lint": "bunx biome lint --fix .",
+    "lint": "bunx biome lint --fix",
     "lint:CI": "bunx biome check",
-    "check": "bunx biome check --fix ."
+    "check": "bunx biome check --fix"
   },
   "dependencies": {
-    "hono": "4.10.2",
-    "p-queue": "8.1.1",
+    "hono": "4.10.4",
+    "p-queue": "9.0.0",
     "ts3-nodejs-library": "3.5.1",
-    "zod": "3.25.76"
+    "zod": "4.1.12"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.9.4",
+    "@biomejs/biome": "2.3.2",
     "@types/bun": "latest",
-    "lefthook": "1.13.6",
+    "lefthook": "2.0.2",
     "typescript": "5.9.3"
   },
-  "trustedDependencies": ["@biomejs/biome"]
+  "trustedDependencies": [
+    "@biomejs/biome"
+  ]
 }

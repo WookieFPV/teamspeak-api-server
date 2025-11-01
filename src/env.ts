@@ -12,7 +12,7 @@ const envSchema = z
   })
   .catch((e) => {
     console.log('Invalid Environment Variables (.env file)');
-    console.log(e.error.message);
+    console.log(e.issues);
     process.exit(1);
   });
 

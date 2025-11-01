@@ -20,7 +20,7 @@ export const apiTsUsersKick = async (c: Context) => {
       false,
     );
     return c.text(`kicked user ${client.clientNickname}`, 200);
-  } catch (e) {
+  } catch (_e) {
     throw new HTTPException(404, { message: `user ${clientName} not online` });
   }
 };

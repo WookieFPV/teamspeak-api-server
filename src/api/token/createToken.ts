@@ -9,7 +9,7 @@ export const apiTokenPost = async (c: Context) => {
       issuer: c.req.query('issuer') ?? null,
     });
     return c.json(token);
-  } catch (e) {
+  } catch (_e) {
     throw new HTTPException(500);
   }
 };

@@ -7,7 +7,7 @@ export const apiTsChannels = async (c: Context) => {
     const ts = await getTeamspeakInstance();
     const channels = await ts.channelList();
     return c.json(channels);
-  } catch (e) {
+  } catch (_e) {
     throw new HTTPException(500);
   }
 };
