@@ -1,31 +1,27 @@
-import { sleep } from 'bun';
 import { QueryProtocol, TeamSpeak } from 'ts3-nodejs-library';
 import { env } from '../env';
+import { createLogger } from '../logger';
 
+const log = createLogger('TS');
+
+/**
+ * Opens a new query connection. Connection lifecycle (errors, close,
+ * reconnect) is owned by ~/teamspeak/ts3.ts, this function only connects.
+ */
 export const tsConnect = async (): Promise<TeamSpeak> => {
-  console.log(`[TS] connect (${env.TS3_HOST})`);
+  const startedAt = Date.now();
+  log.info(
+    `connecting to ${env.TS3_HOST}:${env.TS3_QUERY_PORT} (server port ${env.TS3_SERVER_PORT})`,
+  );
   const ts = await TeamSpeak.connect({
     host: env.TS3_HOST,
-    queryport: 10011,
-    serverport: 9987,
+    queryport: env.TS3_QUERY_PORT,
+    serverport: env.TS3_SERVER_PORT,
     protocol: QueryProtocol.RAW,
     username: env.TS3_USERNAME,
     nickname: env.TS3_NICKNAME,
     password: env.TS3_PASSWORD,
-  }).catch(async (e) => {
-    console.log('[TS] tsConnect error', e);
-    await sleep(3000);
-    console.log('[TS] tsConnect error delay done');
-    //an error occurred during connecting
-    throw e;
   });
-  console.log(`[TS] connect (${env.TS3_HOST}) done`);
-
-  ts.on('close', async (_error): Promise<void> => {
-    console.log('[TS] disconnected, trying to reconnect...');
-    await ts.reconnect(-1, 3000);
-    console.log('[TS] reconnected!');
-  });
-  console.log('[TS] Connected');
+  log.info(`connected to ${env.TS3_HOST} in ${Date.now() - startedAt}ms`);
   return ts;
 };
