@@ -115,10 +115,41 @@ paths:
         "404":
           description: User not found
 
+  /ts/health:
+    get:
+      summary: Connection health & diagnostics
+      description: >
+        State of the TeamSpeak query connection and of all open websocket
+        connections. Use `teamspeak.driftDetected` / `teamspeak.repairedEvents`
+        to see how often events were missed and had to be repaired, and
+        `websocket.connections[].dropped` for events that never reached a
+        client. Returns 503 while the TeamSpeak connection is down.
+      responses:
+        "200":
+          description: TeamSpeak connection is up
+          content:
+            application/json:
+              schema:
+                type: object
+        "503":
+          description: TeamSpeak connection is down
+
   /ts/ws:
     get:
       summary: WebSocket connection
-      description: Establishes a WebSocket connection to receive TeamSpeak events
+      description: >
+        Establishes a WebSocket connection to receive TeamSpeak events.
+
+
+        Events (JSON, field `type`):
+          * `connected` - subscription is active
+          * `clientConnect` / `clientDisconnect` / `clientMoved` - client events
+          * `tsDisconnected` - the query connection to TeamSpeak dropped,
+            events may be missed from now on, data is potentially stale
+          * `tsReconnected` - connection is back, `repaired` synthetic events
+            were emitted to catch up on the outage
+          * `heartbeat` - periodic liveness signal (`sentAt`, `tsConnected`,
+            `clientCount`); if it stops arriving the data is stale
       responses:
         "101":
           description: WebSocket connection established
