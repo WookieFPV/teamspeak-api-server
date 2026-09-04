@@ -5,7 +5,7 @@
     "": {
       "name": "BunHonoServer",
       "dependencies": {
-        "hono": "4.12.31",
+        "hono": "4.13.5",
         "p-queue": "9.3.3",
         "ts3-nodejs-library": "3.5.3",
         "zod": "4.4.3",
@@ -55,7 +55,7 @@
 
     "eventemitter3": ["eventemitter3@5.0.4", "", {}, "sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw=="],
 
-    "hono": ["hono@4.12.31", "", {}, "sha512-zJIHFrl6bq3RDd2YusFNCDlM8qUprxKswyi/OPzPyzKDdyBXDqWx8bZlZ7R+saTdSTatUmb3O7K4SspGPaEOQg=="],
+    "hono": ["hono@4.13.5", "", {}, "sha512-O6+/eCYRkzzzy0rPWwKLiGBR1nFuUPZynnwjxN1MBA62NNqbT0wQEzQyK2gSO5yDIDB336sXQleAhOHrzlYyKw=="],
 
     "lefthook": ["lefthook@2.1.10", "", { "optionalDependencies": { "lefthook-darwin-arm64": "2.1.10", "lefthook-darwin-x64": "2.1.10", "lefthook-freebsd-arm64": "2.1.10", "lefthook-freebsd-x64": "2.1.10", "lefthook-linux-arm64": "2.1.10", "lefthook-linux-x64": "2.1.10", "lefthook-openbsd-arm64": "2.1.10", "lefthook-openbsd-x64": "2.1.10", "lefthook-windows-arm64": "2.1.10", "lefthook-windows-x64": "2.1.10" }, "bin": { "lefthook": "bin/index.js" } }, "sha512-K7mM4WoqMwqfXYK11EHy+lSH1uW8XHni3Yn/bSqyerPkUPygGdf3xn18JoV5HyA06xuQL3ofGAOjG01QX9oJ4w=="],
 
