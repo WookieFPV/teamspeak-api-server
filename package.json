@@ -12,7 +12,7 @@
     "hono": "4.13.7",
     "p-queue": "9.3.3",
     "ts3-nodejs-library": "3.5.3",
-    "zod": "4.5.4"
+    "zod": "4.6.1"
   },
   "devDependencies": {
     "@biomejs/biome": "2.5.12",
