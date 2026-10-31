@@ -9,7 +9,7 @@
     "check": "bunx biome check --fix"
   },
   "dependencies": {
-    "hono": "4.13.13",
+    "hono": "4.13.14",
     "p-queue": "9.3.5",
     "ts3-nodejs-library": "3.5.3",
     "zod": "4.6.7"
